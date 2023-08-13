@@ -2,8 +2,38 @@
 
 {% block title %}Page parser results{% endblock %}
 
-{% block body %}
-<div class="example-wrapper">
+{% block stylesheets %}
+<style>
+    body{
+        font-family: Arial, Helvetica, sans-serif;
+    }
 
-</div>
+    .grid {
+        border: 5px solid #d1e231;
+        display: grid;
+        grid-template-columns: repeat(4, 150px);
+        grid-template-rows: repeat(4, 150px);
+    }
+
+    .grid > * {
+        background-color: #ffbf94;
+        border-radius: 2px;
+        margin: 1px;
+    }
+
+</style>
+{% endblock %}
+
+{% block body %}
+    <div class="grid">
+        {% for image in images %}
+            <div>
+                <img src="{{ image.url }}"  alt="{{ image.size }}"/>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div>
+        Общий размер: {{ totalSize }}
+    </div>
 {% endblock %}
