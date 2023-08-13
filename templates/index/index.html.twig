@@ -4,10 +4,15 @@
 
 {% block body %}
 <div class="example-wrapper">
+    {{ form_start(form) }}
     <form action="{{ app.request.uri }}" method="get">
+        {{ form_errors(form) }}
         {{ form_label(form.linkUrl, null, {'label': 'Введите URL'}) }}
-        {{ form_widget(form.linkUrl, {'attr':{'class':'form-control form-control-sm'}}) }}
-        {{ form_row(form.submit, { 'label': 'Submit' }) }}
+        {{ form_widget(form.linkUrl) }}
+
+        {{ form_widget(form.save) }}
+        {{ form_rest(form) }}
     </form>
+    {{ form_end(form) }}
 </div>
 {% endblock %}
