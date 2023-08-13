@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\FormError;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -16,8 +18,26 @@ class IndexController extends AbstractController
         $form = $this->createForm(UrlParserFormType::class);
         $form->handleRequest($request);
 
-        return $this->render('index/index.html.twig', [
-            'form' => $form,
-        ]);
+        /** @noinspection PhpPossiblePolymorphicInvocationInspection */
+        if ($form->isSubmitted() && $form->get('save')->isClicked()) {
+
+            if ($form->isValid()) {
+                return $this->render('index/index.html.twig', [
+                    'form' => $form,
+                ]);
+            } else {
+                $form->addError(new FormError('Форма заполнена некорректно'));
+                return $this->render('index/index.html.twig', [
+                    'form' => $form,
+                ]);
+            }
+        } else {
+
+            return $this->render('index/index.html.twig', [
+                'form' => $form,
+
+            ]);
+        }
     }
+
 }
