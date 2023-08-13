@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Page parser{% endblock %}
+
+{% block body %}
+<div class="example-wrapper">
+    <form action="{{ app.request.uri }}" method="get">
+        {{ form_label(form.linkUrl, null, {'label': 'Введите URL'}) }}
+        {{ form_widget(form.linkUrl, {'attr':{'class':'form-control form-control-sm'}}) }}
+        {{ form_row(form.submit, { 'label': 'Submit' }) }}
+    </form>
+</div>
+{% endblock %}
